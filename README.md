@@ -1,2 +1,2 @@
-# DrawSimplePosetsø
-Create and draw Hasse diagrams.
+# DrawSimplePosets
+Create and draw Hasse diagrams. This is a companion to `DrawSimpleGraphs`.
