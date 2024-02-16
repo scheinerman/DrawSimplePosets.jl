@@ -14,11 +14,12 @@ struct HasseDiagram{T}
 
     function HasseDiagram(PP::SimplePoset{T}) where T
         G = simplify(CoverDigraph(PP))
-        embed(G)
+        embed(G, :combined)  # for now
         new{T}(PP,G)
     end
 end
 
 draw(H::HasseDiagram) = draw(H.G)
+draw(P::SimplePoset) = draw(HasseDiagram(P))
 
 end # module DrawSimplePosets
