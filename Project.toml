@@ -2,3 +2,7 @@ name = "DrawSimplePosets"
 uuid = "c2cbad11-a300-4d1e-ab24-77be612ee449"
 authors = ["Ed Scheinerman <ers@jhu.edu>"]
 version = "0.0.0"
+
+[deps]
+SimpleDrawing = "d78a06e8-ae74-583c-9a07-0d6572347000"
+SimplePosets = "b2aef97b-4721-5af9-b440-0bad754dc5ba"
