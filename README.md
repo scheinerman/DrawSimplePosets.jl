@@ -1,6 +1,8 @@
 # DrawSimplePosets
 Create and draw Hasse diagrams. This is a companion to `DrawSimpleGraphs`.
 
+> **NOTE**: This is a work in progress; it is minimally functional.
+
 
 ## Basic Functions
 
