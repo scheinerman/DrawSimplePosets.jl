@@ -28,7 +28,7 @@ function basic_embedding(P::SimplePoset{T})::Dict{T,Vector{Float64}} where {T}
         bot = minimals(PP)
         nbot = length(bot)  # number of minimals
         for j = 1:nbot
-            x = j - nbot / 2
+            x = j - nbot/2 - 0.5
             v = bot[j]
             d[v] = [x, y]
             delete!(PP, v)

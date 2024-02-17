@@ -1,11 +1,10 @@
-# DrawSimplePosets
+# `DrawSimplePosets`
 Create and draw Hasse diagrams. This is a companion to `DrawSimpleGraphs`.
 
-> **NOTE**: This is a work in progress; it is minimally functional.
+> **NOTE**: This is a work in progress; more to come.
 
 ## Overview
 
-### Creating a Hasse diagram
 
 A Hasse diagram is a drawing of a partially ordered set. Given a poset `P`,
 we construct a drawing of `P` like this:
@@ -41,36 +40,67 @@ results in this image:
 
 ## Basic Functions
 
+### Construction
 
-### Creating a basic Hasse diagram
+If `P` is a `SimplePoset`, then `HasseDiagram(P)` creates a Hasse diagram of `P`.
 
-To create a Hasse diagram for a poset `P` use `HasseDiagram(P)`. This 
-creates a `HasseDiagram` object with a rather basic embedding for the 
-elements of `P`. For small posets, it's not too terrible.
 
-To then view the poset, use `draw(H)`. 
+### Specifying coordinates
 
-The `draw` function may be used with a poset `P`. 
-`draw(P)` is equivalent to `draw(HasseDiagram(P))`.
+Given a Hasse diagram `H` of a poset `P` the function `setxy!` is used to assign
+coordinates to the elements of `P`. The function `setxy!` is applied to the Hasse diagram
+like this: 
+```
+setxy!(H, xy)
+```
+where `xy` is a dictionary mapping elements of the poset to coordinates in the plane. 
+That is, if `P` is a `SimplePoset` whose elements have type `T`, then `xy` is of type `Dict{T, Vector{Float64}}`.
+
+Calling `setxy!(H)` embues `H` with coordinates created by `basic_embedding`.
 
 ### Getting coordinates
 
 Use `getxy(H)` to return a dictionary mapping the elements of the poset `P` 
 to coordinates (values of type `Vector{Float64}`).
 
-### Specifying an embedding
 
-Given a dictionary mapping elements of a poset `P` to coordinates, use
-`embed(P,xy)` to create a Hasse diagram in which element `v` has coordinates
-`xy[v]`.
+## Embedding Functions
+
+This section will list the available embedding functions. At present, there is only one: `basic_embedding`. I hope we have others "eventually". 
+
+In general, an embedding function `f` takes a `SimplePoset` as its argument and returns
+an `xy` embedding for that poset. 
+
+### `basic_embedding`
+
+The function `basic_embedding` creates `xy`-coordinates for a poset, `P` as follows.
+
+The minimal elements of `P` are all assigned `y`-coordinate 1. The `x`-coordinates are chosen so 
+these elements are evenly spaced, distance 1 apart, and overall centered at 0. For example, if there are three minimal elements, their coordinates will be `[-1, 1]`, `[0, 1]`, and `[1,1]`. If there are four minimal elements, their `x`-coordinates will be `-1.5`, `-0.5`, `0.5`, and `1.5`.
+
+Next, the minimal elements of `P` are discarded [no change is made to the poset] and the minimal elements of the remainder are assigned `y`-coordinate 2. The `x`-coordinates of these minimals are assigned as 
+previously described.
+
+Now these minimal elements are discarded, the minimals of the remainder are assigned `y`-coordinate 3, and so forth.
 
 
 
 
 
-## Versus `DrawSimpleGraphs`
+## `DrawSimplePosets` versus `DrawSimpleGraphs`
+
+These two modules have differing design philosophies. 
 
 Drawings of undirected graphs using `SimpleGraphs` and `DrawSimpleGraphs` are attached to the graphs themselves. That is, the `xy`-embedding of an `UndirectedGraph` is part of the data structure 
 of that graph. 
 
-For partially ordered sets we take a different approach. A `SimplePoset` object contains no `xy`-embedding information. Rather, a `HasseDiagram` created from that poset has the embedding. It is possible to create two (or more) Hasse diagrams of the same poset, each with its own embedding. 
+For partially ordered sets we have taken a different approach. A `SimplePoset` object contains no `xy`-embedding information. Rather, a `HasseDiagram` created from that poset has the embedding. It is possible to create two (or more) Hasse diagrams of the same poset, each with its own embedding. 
+
+## Under the Hood
+
+A `HasseDiagram` object `H` has two fields:
+* `P` which is the poset from which `H` was created.
+* `G` which is an `UndirectedGraph` whose vertices are the elements of `P` and in which there is an edge from `u` to `v` if either `u` is a cover for `v` or `v` is a cover for `u`. These are the edgeds that are drawn in the diagram.
+
+After `H = HasseDiagram(P)` the field `H.P` is the same exact object as `P`. The field `H.G` is 
+created from `P` by finding the covering digraph and then ignoring directions. Subsequent changes to `P` will affect `H.P` but not `H.G`. 
