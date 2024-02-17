@@ -1,11 +1,18 @@
 export basic_embedding
 
-function embed(P::SimplePoset{T}, xy::Dict{T,Vector{Float64}})::HasseDiagram where {T}
-    H = HasseDiagram(P)
+export setxy!
+
+"""
+    setxy!(H::HasseDiagram{T}, xy::Dict{T,Vector{Float64}})
+
+This function assigns x,y-coordinates to the elements of the poset 
+represented by this Hasse diagram. 
+"""
+function setxy!(H::HasseDiagram{T}, xy::Dict{T,Vector{Float64}}) where {T}
     embed(H.G, xy)
-    return H
 end
 
+setxy!(H::HasseDiagram) = setxy!(H, basic_embedding(H.P))
 
 """
     basic_embedding(P::SimplePoset{T})::Dict{T, Vector{Float64}} where T
