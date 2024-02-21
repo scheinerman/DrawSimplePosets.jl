@@ -5,7 +5,7 @@ using SimplePosets, SimpleGraphs, DrawSimpleGraphs, SimpleDrawing
 import SimpleDrawing: draw, draw!
 import DrawSimpleGraphs: embed, getxy
 
-export draw, embed, getxy, setxy!
+export draw, draw!, embed, getxy, setxy!
 
 export HasseDiagram
 """
@@ -32,5 +32,6 @@ end
 
 include("embed.jl")
 include("draw.jl")
+include("shift_scale.jl")
 
 end # module DrawSimplePosets

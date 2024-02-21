@@ -68,7 +68,15 @@ to coordinates (values of type `Vector{Float64}`).
 
 ### Shifting and scaling
 
-NOT YET IMPLEMENTED
+Hasse diagrams can be shifted and scaled using these functions:
+
+* `shift(H,dx,dy)` modifies `H` by adding `dx` to all `x`-coordinates and `dy` to all `y`-coordinates.
+* `scale!(H,mx,my)` modifies `H` by multiplying `mx` to all `x`-coordinates and `my` to all `y`-coordinates.
+
+The function `bounds(H)` returns a 4-tuple `(xmin,ymin,xmax,ymax)` that gives the boundary
+of the Hasse diagram drawing. 
+Note that the circles representing the elements of the poset may extend
+beyond the boundary.  
 
 
 ## Embedding Functions
