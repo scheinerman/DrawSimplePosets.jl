@@ -2,7 +2,7 @@ module DrawSimplePosets
 
 using SimplePosets, SimpleGraphs, DrawSimpleGraphs, SimpleDrawing
 
-import SimpleDrawing: draw
+import SimpleDrawing: draw, draw!
 import DrawSimpleGraphs: embed, getxy
 
 export draw, embed, getxy, setxy!

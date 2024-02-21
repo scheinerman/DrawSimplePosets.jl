@@ -5,15 +5,17 @@ Draw the Hasse digram `H` using its current `xy`-embedding.
 If it does not have an `xy`-embedding, create one for it
 using `basic_embedding`.
 """
-function draw(H::HasseDiagram)
+function draw(H::HasseDiagram, clear_first::Bool = true)
     if !hasxy(H.G)
         setxy!(H)
     end
-    draw(H.G)
+    draw(H.G, clear_first)
 end
+draw!(H::HasseDiagram) = draw(H, false)
 
 
-draw(P::SimplePoset) = draw(HasseDiagram(P))
+draw(P::SimplePoset, clear_first::Bool = true) = draw(HasseDiagram(P), clear_first)
+draw!(P::SimplePoset) = draw(P, false)
 
 """
     getxy(H::HasseDiagram)

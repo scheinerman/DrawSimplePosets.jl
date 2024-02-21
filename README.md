@@ -37,6 +37,9 @@ results in this image:
 
 ![](divisors-120.png)
 
+The `draw` function takes an optional second argument, `clear_first`, which is `true` by default. Use `draw(H,false)` to draw a Hasse diagram without first clearing the screen. Alternatively, `draw!(H)` has the same effect. 
+
+
 
 ## Basic Functions
 
@@ -62,6 +65,10 @@ Calling `setxy!(H)` embues `H` with coordinates created by `basic_embedding`.
 
 Use `getxy(H)` to return a dictionary mapping the elements of the poset `P` 
 to coordinates (values of type `Vector{Float64}`).
+
+### Shifting and scaling
+
+NOT YET IMPLEMENTED
 
 
 ## Embedding Functions
