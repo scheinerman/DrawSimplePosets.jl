@@ -61,10 +61,22 @@ That is, if `P` is a `SimplePoset` whose elements have type `T`, then `xy` is of
 
 Calling `setxy!(H)` embues `H` with coordinates created by `basic_embedding`.
 
+
+#### Changing just the x- or y-coordinates.
+
+The functions `setx!` and `sety!` can be applied to Hasse diagrams to modify the x- or y-coordinates (and leaving the other coordinates unchanged).
+
+Let `zz` be a dictionary mapping (a subset of) the vertices of a poset represented by the Hasse diagram `H` to real numbers. 
+
+* `setx!(H,zz)` changes the `x`-coordinate of `v` to `zz[v]` (leaving `v`'s y-coordinate unchanged).
+* `sety!(H,zz)` changes the `y`-coordinate of `v` to `zz[v]` (leaving `v`'s x-coordinate unchanged).
+
+
 ### Getting coordinates
 
-Use `getxy(H)` to return a dictionary mapping the elements of the poset `P` 
+Use `getxy(H)` to return (a copy of) the dictionary mapping the elements of the poset represented by `H`
 to coordinates (values of type `Vector{Float64}`).
+
 
 ### Shifting and scaling
 

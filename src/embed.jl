@@ -1,6 +1,6 @@
 export basic_embedding
 
-export setxy!
+export setxy!, setx!, sety!
 
 """
     setxy!(H::HasseDiagram{T}, xy::Dict{T,Vector{Float64}})
@@ -13,6 +13,49 @@ function setxy!(H::HasseDiagram{T}, xy::Dict{T,Vector{Float64}}) where {T}
 end
 
 setxy!(H::HasseDiagram) = setxy!(H, basic_embedding(H.P))
+
+
+
+"""
+    setx!(H::HasseDiagram{T}, xx::Dict{T,S}) 
+
+Reset the x-coordinates of the Hasse diagram using the values in `xx`.
+That is, if `v` has coordinates `[x; y]` then change that to `[xx[v]; y]`
+"""
+function setx!(H::HasseDiagram{T}, xx::Dict{T,S}) where {T,S<:Real}
+    d = getxy(H)
+    for v in keys(xx)
+        if has(H.P, v)
+            x = xx[v]
+            y = d[v][2]
+            d[v] = [x; y]
+        end
+    end
+    setxy!(H, d)
+end
+
+
+
+"""
+    sety!(H::HasseDiagram{T}, yy::Dict{T,S}) 
+
+Reset the y-coordinates of the Hasse diagram using the values in `yy`.
+That is, if `v` has coordinates `[x; y]` then change that to `[x; y[v]]`
+"""
+function sety!(H::HasseDiagram{T}, yy::Dict{T,S}) where {T,S<:Real}
+    d = getxy(H)
+    for v in keys(yy)
+        if has(H.P, v)
+            x = d[v][1]
+            y = yy[v]
+            d[v] = [x; y]
+        end
+    end
+    setxy!(H, d)
+end
+
+
+
 
 """
     basic_embedding(P::SimplePoset{T})::Dict{T, Vector{Float64}} where T
@@ -28,7 +71,7 @@ function basic_embedding(P::SimplePoset{T})::Dict{T,Vector{Float64}} where {T}
         bot = minimals(PP)
         nbot = length(bot)  # number of minimals
         for j = 1:nbot
-            x = j - nbot/2 - 0.5
+            x = j - nbot / 2 - 0.5
             v = bot[j]
             d[v] = [x, y]
             delete!(PP, v)
