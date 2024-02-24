@@ -19,13 +19,15 @@ draw!(P::SimplePoset) = draw(P, false)
 
 """
     getxy(H::HasseDiagram)
+    getxy(H::HasseDiagram, x)
 
 Return a dictionary mapping elements of the poset associated
-with `H` to coordinates (type `Vector{Float64}`)
+with `H` to coordinates (type `Vector{Float64}`) or just the coordinates
+of a specified element `x`.
 """
-function getxy(H::HasseDiagram)
+function getxy(H::HasseDiagram, x...)
     if !hasxy(H.G)
         setxy!(H)
     end
-    getxy(H.G)
+    getxy(H.G, x...)
 end

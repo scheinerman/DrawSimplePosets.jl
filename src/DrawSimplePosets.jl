@@ -33,5 +33,6 @@ end
 include("embed.jl")
 include("draw.jl")
 include("shift_scale.jl")
+include("pass_through.jl")
 
 end # module DrawSimplePosets

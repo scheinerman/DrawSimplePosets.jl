@@ -111,6 +111,18 @@ previously described.
 Now these minimal elements are discarded, the minimals of the remainder are assigned `y`-coordinate 3, and so forth.
 
 
+## Graph methods that may be used on HasseDiagrams
+
+The following functions defined for `UndirectedGraphs` may be applied to 
+Hasse diagrams:
+
+* `draw_labels`
+* `get_vertex_size`
+* `set_vertex_size`
+* `get_vertex_color`
+* `set_vertex_color`
+* `get_line_color`
+* `set_line_color`
 
 
 
