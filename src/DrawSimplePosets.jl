@@ -20,7 +20,9 @@ struct HasseDiagram{T}
 
     function HasseDiagram(PP::SimplePoset{T}) where {T}
         G = simplify(CoverDigraph(PP))
-        new{T}(PP, G)
+        H = new{T}(PP, G)
+        setxy!(H)
+        return H
     end
 end
 
