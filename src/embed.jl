@@ -1,5 +1,12 @@
 export setxy!, setx!, sety!
 
+function embed(P::SimplePoset{T}, method::Function = basic_embedding) where {T}
+    H = HasseDiagram(P)
+    xy = method(P)
+    setxy!(H, xy)
+    return H
+end
+
 """
     setxy!(H::HasseDiagram{T}, xy::Dict{T,Vector{Float64}})
 
@@ -55,3 +62,4 @@ end
 
 
 include("basic_embedding.jl")
+include("optim_embedding.jl")

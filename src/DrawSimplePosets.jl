@@ -1,9 +1,10 @@
 module DrawSimplePosets
 
-using SimplePosets, SimpleGraphs, DrawSimpleGraphs, SimpleDrawing
+using SimplePosets, SimpleGraphs, DrawSimpleGraphs, SimpleDrawing, Optim
 
 import SimpleDrawing: draw, draw!
-import DrawSimpleGraphs: embed, getxy
+import DrawSimpleGraphs: getxy
+import SimpleGraphs: embed
 
 export draw, draw!, embed, getxy, setxy!
 
@@ -11,7 +12,7 @@ export HasseDiagram
 """
 HasseDiagram(P::SimplePoset) 
 
-Create a new `HasseDiagram` for the poset `P` that has no embedding.
+Create a new `HasseDiagram` for the poset `P` that has a basic embedding.
 """
 struct HasseDiagram{T}
 
@@ -25,6 +26,7 @@ struct HasseDiagram{T}
         return H
     end
 end
+
 
 import Base: show
 
