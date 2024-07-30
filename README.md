@@ -17,6 +17,8 @@ The function `setxy!(H, xy)` is used to assign coordinates to the elements of th
 Here `xy` is a dictionary mapping elements of `P` (the poset used to create `H`) to 
 points in the plane represented as a two-element vector. That is, if `P` is a `SimplePoset` whose elements have type `T`, then `xy` is of type `Dict{T, Vector{Float64}}`.
 
+> Standard call: `H=HasseDiagram(P); setxy!(H, method(P))`
+
 If `setxy!` is invoked as `setxy!(H)` then a default embedding is assigned to `H` (using the `basic_embedding` function).
 
 Finally, calling `draw(H)` will draw the poset `P` on the screen using the embedding associated with `H`. 

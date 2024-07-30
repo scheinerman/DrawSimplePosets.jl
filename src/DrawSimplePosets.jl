@@ -1,6 +1,7 @@
 module DrawSimplePosets
 
 using SimplePosets, SimpleGraphs, DrawSimpleGraphs, SimpleDrawing, Optim
+using Bijections
 
 import SimpleDrawing: draw, draw!
 import DrawSimpleGraphs: getxy
