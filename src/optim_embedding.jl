@@ -41,14 +41,43 @@ function optim_embedding(P::SimplePoset{T})::Dict{T,Vector{Float64}} where {T}
     y = [hts[bj[k]] for k=1:n]
 
     # The variable x contains the horizontal displacements. 
-    x = [xy[bj[k]][1] for k=1:n]
+    x0 = [xy[bj[k]][1] for k=1:n]
 
 
     # OPTIMIZATION GOES HERE
 
 
+    function energy(x)
+        nrg = 0.0
+
+        # sum distance-squared for cover edges
+        for e in G.E     # for each cover
+            u,v = e
+            i = bj(u)
+            j = bj(v)
+            d = dist2(x[i],y[i],x[j],y[j])
+            nrg += sqrt(d)   # attraction
+        end
+
+        # repel forces for incomparables
+        for uv in incomparables(P)
+            u,v = uv
+            i = bj(u)
+            j = bj(v)
+            d = dist2(x[i],y[i],x[j],y[j])
+            nrg += -1/(d^(3)) # repulsion
+        end
+        return nrg
+    end
+
+    @show energy(x0)
+
+    result = optimize(energy, x0, iterations = 100_000)
+    @show result
+
+    x = Optim.minimizer(result)
+
     # convert to xy dictionary
-    
     newxy = Dict{T,Vector{Float64}}()
     for k = 1:n
         v = bj[k]
@@ -59,4 +88,9 @@ function optim_embedding(P::SimplePoset{T})::Dict{T,Vector{Float64}} where {T}
 
 
     return newxy
+end
+
+
+function dist2(x1,y1,x2,y2)
+    return (x1-x2)^2 + (y1-y2)^2
 end
