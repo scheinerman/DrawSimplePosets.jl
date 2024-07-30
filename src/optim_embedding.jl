@@ -43,14 +43,16 @@ function optim_embedding(P::SimplePoset{T})::Dict{T,Vector{Float64}} where {T}
     # The variable x contains the horizontal displacements. 
     x0 = [xy[bj[k]][1] for k=1:n]
 
+    x0 = randn(n)
 
-    # OPTIMIZATION GOES HERE
+
+    # OPTIMIZATION FUNCTION GOES HERE
 
 
     function energy(x)
         nrg = 0.0
 
-        # sum distance-squared for cover edges
+        # attraction forces for covers 
         for e in G.E     # for each cover
             u,v = e
             i = bj(u)
@@ -65,7 +67,7 @@ function optim_embedding(P::SimplePoset{T})::Dict{T,Vector{Float64}} where {T}
             i = bj(u)
             j = bj(v)
             d = dist2(x[i],y[i],x[j],y[j])
-            nrg += -1/(d^(3)) # repulsion
+            nrg += 2/(d^2) # repulsion
         end
         return nrg
     end
@@ -74,6 +76,8 @@ function optim_embedding(P::SimplePoset{T})::Dict{T,Vector{Float64}} where {T}
 
     result = optimize(energy, x0, iterations = 100_000)
     @show result
+
+    @show minimum(result)
 
     x = Optim.minimizer(result)
 
