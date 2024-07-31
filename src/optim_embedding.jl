@@ -103,7 +103,7 @@ function optim_embedding_work(P::SimplePoset{T}, x0) where {T}
         for i=1:n-1
             for j=i+1:n
                 d = dist2(x[i], y[i], x[j], y[j])
-                nrg += 2/sqrt(d)
+                nrg += 3/sqrt(d)
             end
         end
 
