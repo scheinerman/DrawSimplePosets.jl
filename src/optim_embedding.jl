@@ -88,16 +88,32 @@ function optim_embedding_work(P::SimplePoset{T}, x0) where {T}
             nrg += sqrt(d)   # attraction
         end
 
+
         # repel forces for incomparables
-        for uv in incomparables(P)
-            u, v = uv
-            i = bj(u)
-            j = bj(v)
-            d = dist2(x[i], y[i], x[j], y[j])
-            nrg += 10 / (d) # repulsion
+        # for uv in incomparables(P)
+        #     u, v = uv
+        #     i = bj(u)
+        #     j = bj(v)
+        #     d = dist2(x[i], y[i], x[j], y[j])
+        #     nrg += 10 / (d) # repulsion
+        # end
+
+
+        # repel forces for all pairs
+        for i=1:n-1
+            for j=i+1:n
+                d = dist2(x[i], y[i], x[j], y[j])
+                nrg += 2/sqrt(d)
+            end
         end
+
+
         return nrg
     end
+
+
+
+
 
     #@show energy(x0)
 
