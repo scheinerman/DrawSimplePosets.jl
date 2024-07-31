@@ -27,6 +27,14 @@ function optim_embedding(
 
     # first x0 from standard basic_embedding
     xy = basic_embedding(P) # just to get us started
+
+
+    # TEMP ... RANDOMIZE
+    for v in elements(P)
+        xy[v] = [xy[v][1], randn()]
+    end
+
+
     n = card(P)
     bj = element_bijection(P)
 
@@ -68,10 +76,6 @@ function optim_embedding_work(P::SimplePoset{T}, x0) where {T}
     # The variable y contains the heights of the elements indexed 1:n 
     y = [hts[bj[k]] for k = 1:n]
 
-    # The variable x contains the horizontal displacements. 
-    # x0 = [xy[bj[k]][1] for k=1:n]
-
-    # x0 = 10*randn(n)
 
 
     # OPTIMIZATION FUNCTION GOES HERE
@@ -84,8 +88,9 @@ function optim_embedding_work(P::SimplePoset{T}, x0) where {T}
             u, v = e
             i = bj(u)
             j = bj(v)
-            d = dist2(x[i], y[i], x[j], y[j])
-            nrg += sqrt(d)   # attraction
+            d = sqrt(dist2(x[i], y[i], x[j], y[j]))
+
+            nrg += (d - 1)^2   # attraction
         end
 
 
@@ -99,11 +104,15 @@ function optim_embedding_work(P::SimplePoset{T}, x0) where {T}
         # end
 
 
-        # repel forces for all pairs
-        for i=1:n-1
-            for j=i+1:n
-                d = dist2(x[i], y[i], x[j], y[j])
-                nrg += 3/sqrt(d)
+        # repel forces for all pairs that are not covers
+        for i = 1:n-1
+            for j = i+1:n
+                u = bj[i]
+                v = bj[j]
+                if !has(G, u, v)
+                    d = dist2(x[i], y[i], x[j], y[j])
+                    nrg += n/d
+                end
             end
         end
 
