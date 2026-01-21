@@ -1,7 +1,7 @@
 name = "DrawSimplePosets"
 uuid = "c2cbad11-a300-4d1e-ab24-77be612ee449"
 authors = ["Ed Scheinerman <ers@jhu.edu>"]
-version = "0.0.0"
+version = "0.0.1"
 
 [deps]
 DrawSimpleGraphs = "1d51b185-1a84-59cf-b84e-03b0e3da30b7"
