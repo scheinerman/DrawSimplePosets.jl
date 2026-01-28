@@ -8,5 +8,8 @@ DrawSimpleGraphs = "1d51b185-1a84-59cf-b84e-03b0e3da30b7"
 SimpleDrawing = "d78a06e8-ae74-583c-9a07-0d6572347000"
 SimpleGraphs = "55797a34-41de-5266-9ec1-32ac4eb504d3"
 SimplePosets = "b2aef97b-4721-5af9-b440-0bad754dc5ba"
-# Optim = "429524aa-4258-5aef-a3af-852621145aeb"
+Optim = "429524aa-4258-5aef-a3af-852621145aeb"
 Bijections = "e2ed5e7c-b2de-5872-ae92-c73ca462fb04"
+
+[compat]
+Optim = "1, 2"
